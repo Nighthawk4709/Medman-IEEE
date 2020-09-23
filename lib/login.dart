@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       print("error");
                     else{
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => signedin()));
+                          MaterialPageRoute(builder: (context) => MyApp()));
                     }
                   },
                   color: Colors.blue,
