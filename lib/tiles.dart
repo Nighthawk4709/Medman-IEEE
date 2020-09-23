@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -13,32 +14,34 @@ class _tileState extends State<tile> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/bg1.jpg"),
-            fit: BoxFit.fill,
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/bg1.jpg"),
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        //color: Colors.lightBlueAccent,
-        //child: Padding(
-        //padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-        child: StaggeredGridView.count(
-          crossAxisCount: 1,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 15,
-          staggeredTiles: [
-            StaggeredTile.extent(1, 650),
-            StaggeredTile.extent(1, 650),
-            StaggeredTile.extent(1, 650),
-            StaggeredTile.extent(1, 650),
-          ],
-          children: <Widget>[
-            first(context),
-            second(),
-            third(),
-            forth(),
-          ],
+          //color: Colors.lightBlueAccent,
+          //child: Padding(
+          //padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+          child: StaggeredGridView.count(
+            crossAxisCount: 1,
+            mainAxisSpacing: 15,
+            crossAxisSpacing: 15,
+            staggeredTiles: [
+              StaggeredTile.extent(1, 650),
+              StaggeredTile.extent(1, 650),
+              StaggeredTile.extent(1, 650),
+              StaggeredTile.extent(1, 650),
+            ],
+            children: <Widget>[
+              first(context),
+              second(),
+              third(),
+              forth(),
+            ],
+          ),
         ),
       ),
     );
@@ -57,7 +60,7 @@ Widget first(BuildContext context) {
         children: <Widget>[
           Center(
               child: Image.asset(
-                'images/logo1.png',
+                'images/logo2.png',
                 height: 250,
               )),
           Text(
