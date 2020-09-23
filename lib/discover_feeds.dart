@@ -1,6 +1,8 @@
+import 'package:example/write_feeds.dart';
+import 'package:example/signin.dart';
 import 'package:flutter/material.dart';
 import 'companion.dart';
-import 'logout.dart';
+import 'write_feeds.dart';
 import 'main.dart';
 
 class MyApp extends StatelessWidget {
@@ -86,7 +88,8 @@ class MyApp extends StatelessWidget {
                   ),
           ),
            floatingActionButton: FloatingActionButton(
-               onPressed: (){},
+               onPressed: (){Navigator.push(context,
+                   MaterialPageRoute(builder: (context) => AddPost()));},
               child : Icon(Icons.add),
            ),
           ),
@@ -141,13 +144,20 @@ class NavDrawer extends StatelessWidget{
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute (builder: (context) => home()),
+            onTap: () => logout(context),
             ),
-          ),
         ],
       ),
     );
   }
-
+  logout(context){
+    AuthProvider().logOut();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => home(),
+      ),
+          (route) => false,
+    );
+  }
 }
