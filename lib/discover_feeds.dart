@@ -40,22 +40,13 @@ class _MyAppState extends State<MyApp> {
           drawer: NavDrawer(),
           appBar: AppBar(
 
-              backgroundColor: Colors.lightBlue,
+              backgroundColor: Colors.green,
 
               title: Text("HEALTH NETWORK"),
               actions: <Widget>[
                 IconButton(icon: Icon(Icons.search), onPressed: () {}),
               ],
-              bottom: TabBar(tabs: <Widget>[
-                Tab(icon: Icon(Icons.category)),
-                Text("1"),
-                Tab(icon: Icon(Icons.category)),
-                Text("2"),
-                Tab(icon: Icon(Icons.category)),
-                Text("3"),
-                Tab(icon: Icon(Icons.category)),
-                Text("4"),
-              ])),
+              ),
           body: Container(
             color: Colors.black87,
             child: Column(
@@ -109,6 +100,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.green,
             onPressed: (){Navigator.push(context,
                 MaterialPageRoute(builder: (context) => AddPost()));},
             child : Icon(Icons.add),

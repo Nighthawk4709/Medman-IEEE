@@ -1,12 +1,16 @@
 
+//import 'package:firebase/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AuthProvider{
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   signInWithEmail(String email, String password) async{
     try {
@@ -34,6 +38,7 @@ class AuthProvider{
   }
 
   Future<dynamic> loginwithGoogle() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     GoogleSignIn googleSignIn = GoogleSignIn();
     try
          {
@@ -45,9 +50,32 @@ class AuthProvider{
           GoogleAuthProvider.credential(
               idToken: (await account.authentication).idToken,
               accessToken: (await account.authentication).accessToken));
-      if (res.user == null)
+      if (res.user == null) {
         return false;
-      return true;
+      } else {
+        final result = (await FirebaseFirestore.instance.collection('users').where('id', isEqualTo: res.user.uid).get()).docs;
+
+        if(result.length == 0){
+          //new user
+          Firestore.instance.collection('users').document(res.user.uid).setData({
+            "id" : res.user.uid,
+            "name" : res.user.displayName,
+            "profile_pic" : res.user.photoURL,
+            "created_at" : DateTime.now().microsecondsSinceEpoch,
+          });
+
+          sharedPreferences.setString("id", res.user.uid);
+          sharedPreferences.setString("name", res.user.displayName);
+          sharedPreferences.setString("profile_pic", res.user.photoURL);
+
+        }else{
+          //old user
+          //sharedPreferences.setString("id", result[0]["id"]});
+          //sharedPreferences.setString("name", result[0]["name"]);
+          //sharedPreferences.setString("profile_pic", result[0]["profile_pic"]);
+        }
+        return true;
+      }
     }
     catch(e){
       print("login failed");

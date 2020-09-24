@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'main.dart';
 import 'signin.dart';
 import 'discover_feeds.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -21,6 +22,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  void initState(){
+    checkIfuserLoggedIn();
+    super.initState();
+  }
+  bool pageInit = false;
+  checkIfuserLoggedIn() async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool userLoggedIn = (sharedPreferences.getString('id')??'').isNotEmpty;
+
+    if(userLoggedIn){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => MyApp()));
+    }
+    else{
+      pageInit = true;
+    }
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -32,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
           elevation: 0,
         ),
         backgroundColor: primaryColor,
-        body: Container(
+        body: (pageInit)?Container(): Container(
           alignment: Alignment.topCenter,
           margin: EdgeInsets.symmetric(horizontal: 30),
           child: SingleChildScrollView(
@@ -154,6 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-        ));
+        )
+    );
   }
 }

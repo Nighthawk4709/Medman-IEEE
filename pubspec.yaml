@@ -38,6 +38,8 @@ dependencies:
   font_awesome_flutter:
   google_fonts:
   timeago:
+  cloud_firestore:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
