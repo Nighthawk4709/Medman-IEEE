@@ -37,6 +37,7 @@ dependencies:
   firebase:
   font_awesome_flutter:
   google_fonts:
+  timeago:
 
 dev_dependencies:
   flutter_test:

@@ -4,8 +4,31 @@ import 'package:flutter/material.dart';
 import 'companion.dart';
 import 'write_feeds.dart';
 import 'main.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'viewPost.dart';
+import 'post.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  FirebaseDatabase _database = FirebaseDatabase.instance;
+  String nodeName = "posts";
+  List<Post> postsList = <Post>[];
+
+
+  @override
+  void initState() {
+    _database.reference().child(nodeName).onChildAdded.listen(_childAdded);
+    _database.reference().child(nodeName).onChildRemoved.listen(_childRemoves);
+    _database.reference().child(nodeName).onChildChanged.listen(_childChanged);
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,71 +56,93 @@ class MyApp extends StatelessWidget {
                 Tab(icon: Icon(Icons.category)),
                 Text("4"),
               ])),
-          body: ListView.builder(
-            itemCount: 10,
-              itemBuilder: (context,index) =>
-                  Card(
+          body: Container(
+            color: Colors.black87,
+            child: Column(
+              children: <Widget>[
+                Visibility(
+                  visible: postsList.isEmpty,
+                  child: Center(
                     child: Container(
-                      height: 350.0,
-                      color: Colors.lightBlue,
-                      child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            leading: CircleAvatar(backgroundImage: NetworkImage("https://cdn3-www.comingsoon.net/assets/uploads/2016/12/bossbabytrailer.jpg"),),
-
-                            title: Text("Feed title"),
-                            subtitle: Text("Author name"),
-                          ),
-                          //In this part use this part to show articles
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    "https://previews.123rf.com/images/dizanna/dizanna1509/dizanna150900512/45100714-health-word-cloud-heart-concept.jpg"),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 15.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  RaisedButton.icon(onPressed: () {}, icon: Icon(Icons.thumb_up, color: Colors.lightBlueAccent ), label: Text("Like") ,color: Colors.white,),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  RaisedButton.icon(onPressed: () {}, icon: Icon(Icons.comment, color: Colors.lightBlueAccent ), label: Text("Comment") ,color: Colors.white,),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  RaisedButton.icon(onPressed: () {}, icon: Icon(Icons.share, color: Colors.lightBlueAccent ), label: Text("Share") ,color: Colors.white,),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 12.0),
-                        ],
-                      ),
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(),
                     ),
                   ),
+                ),
+
+                Visibility(
+                  visible: postsList.isNotEmpty,
+                  child: Flexible(
+                      child: FirebaseAnimatedList(
+                          query: _database.reference().child('posts'),
+                          itemBuilder: (_, DataSnapshot snap, Animation<double> animation, int index){
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                child: ListTile(
+                                  title: ListTile(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => PostView(postsList[index])));
+                                    },
+                                    title: Text(
+                                      postsList[index].title,
+                                      style: TextStyle(
+                                          fontSize: 22.0, fontWeight: FontWeight.bold),
+                                    ),
+                                    subtitle: Text(
+                                      "by: "+postsList[index].author,
+                                      style: TextStyle(
+                                          fontSize: 22.0, color: Colors.black),
+                                    ),
+                                    trailing: Text(
+                                      timeago.format(DateTime.fromMillisecondsSinceEpoch(postsList[index].date)),
+                                      style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                                    ),
+                                  ),
+
+                                ),
+                              ),
+                            );
+                          })),
+                )
+              ],
+            ),
           ),
-           floatingActionButton: FloatingActionButton(
-               onPressed: (){Navigator.push(context,
-                   MaterialPageRoute(builder: (context) => AddPost()));},
-              child : Icon(Icons.add),
-           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddPost()));},
+            child : Icon(Icons.add),
           ),
         ),
-      );
+      ),
+    );
+  }
+  _childAdded(Event event) {
+    setState(() {
+      postsList.add(Post.fromSnapshot(event.snapshot));
+    });
+  }
+
+  void _childRemoves(Event event) {
+    var deletedPost = postsList.singleWhere((post){
+      return post.key == event.snapshot.key;
+    });
+
+    setState(() {
+      postsList.removeAt(postsList.indexOf(deletedPost));
+    });
+  }
+
+  void _childChanged(Event event) {
+    var changedPost = postsList.singleWhere((post){
+      return post.key == event.snapshot.key;
+    });
+
+    setState(() {
+      postsList[postsList.indexOf(changedPost)] = Post.fromSnapshot(event.snapshot);
+    });
   }
 }
-
 
 class NavDrawer extends StatelessWidget{
   @override
