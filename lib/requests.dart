@@ -62,7 +62,7 @@ class _RequestsState extends State<Requests> {
         child: Container(
           height: 40,
           child: Center(
-            child: Text(doc.get('name'), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            child: Text(doc.get('name').toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
           ),
         ),
       ),
@@ -70,5 +70,9 @@ class _RequestsState extends State<Requests> {
     } else {
       return Container(height: 10, width: 10,) ;
     }
+  }
+  String getCapitalizeString({String str}) {
+    if (str.length <= 1) { return str.toUpperCase(); }
+    return '${str[0].toUpperCase()}${str.substring(1)}';
   }
 }

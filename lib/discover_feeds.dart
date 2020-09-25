@@ -69,30 +69,30 @@ class _MyAppState extends State<MyApp> {
                           itemBuilder: (_, DataSnapshot snap, Animation<double> animation, int index){
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                child: ListTile(
-                                  title: ListTile(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => PostView(postsList[index])));
-                                    },
-                                    title: Text(
-                                      postsList[index].title,
-                                      style: TextStyle(
-                                          fontSize: 22.0, fontWeight: FontWeight.bold),
+                                child: Card(
+                                  child: ListTile(
+                                    title: ListTile(
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PostView(postsList[index])));
+                                      },
+                                      title: Text(
+                                        postsList[index].title,
+                                        style: TextStyle(
+                                            fontSize: 22.0, fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text(
+                                        "by: "+postsList[index].author,
+                                        style: TextStyle(
+                                            fontSize: 22.0, color: Colors.black),
+                                      ),
+                                      trailing: Text(
+                                        timeago.format(DateTime.fromMillisecondsSinceEpoch(postsList[index].date)),
+                                        style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                                      ),
                                     ),
-                                    subtitle: Text(
-                                      "by: "+postsList[index].author,
-                                      style: TextStyle(
-                                          fontSize: 22.0, color: Colors.black),
-                                    ),
-                                    trailing: Text(
-                                      timeago.format(DateTime.fromMillisecondsSinceEpoch(postsList[index].date)),
-                                      style: TextStyle(fontSize: 14.0, color: Colors.grey),
-                                    ),
-                                  ),
 
+                                  ),
                                 ),
-                              ),
                             );
                           })),
                 )

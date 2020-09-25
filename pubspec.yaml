@@ -40,6 +40,9 @@ dependencies:
   timeago:
   cloud_firestore:
   shared_preferences:
+  firebase_messaging:
+  flutter_local_notifications:
+  http:
 
 dev_dependencies:
   flutter_test:

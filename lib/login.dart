@@ -33,13 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
     bool userLoggedIn = (sharedPreferences.getString('id')??'').isNotEmpty;
 
     if(userLoggedIn){
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => MyApp()));
+      //Navigator.push(context,
+         // MaterialPageRoute(builder: (context) => MyApp()));
     }
     else{
       pageInit = true;
     }
   }
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   @override
   Widget build(BuildContext context) {
 
@@ -51,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
           elevation: 0,
         ),
         backgroundColor: primaryColor,
-        body: (pageInit)?Container(): Container(
+        body: Container(
           alignment: Alignment.topCenter,
           margin: EdgeInsets.symmetric(horizontal: 30),
           child: SingleChildScrollView(
@@ -149,7 +150,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   minWidth: double.maxFinite,
                   height: 50,
                   onPressed: () async {
+                    Dialogs.showLoadingDialog(context, _keyLoader);
                     bool res = await AuthProvider().loginwithGoogle();
+                    Navigator.of(_keyLoader.currentContext,rootNavigator: true).pop();
                     if(!res)
                       print("error");
                     else{
@@ -175,5 +178,30 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         )
     );
+  }
+}
+
+class Dialogs {
+  static Future<void> showLoadingDialog(
+      BuildContext context, GlobalKey key) async {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new WillPopScope(
+              onWillPop: () async => false,
+              child: SimpleDialog(
+                  key: key,
+                  backgroundColor: Colors.black54,
+                  children: <Widget>[
+                    Center(
+                      child: Column(children: [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 10,),
+                        Text("Please Wait....",style: TextStyle(color: Colors.blueAccent),)
+                      ]),
+                    )
+                  ]));
+        });
   }
 }

@@ -94,12 +94,6 @@ class _FeedState extends State<Feed> {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.green,
-            onPressed: (){Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddPost()));},
-            child : Icon(Icons.add),
-          ),
         ),
       ),
     );

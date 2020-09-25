@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
             child: Container(
               height: 40,
               child: Center(
-                child: Text(doc.get('name'), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                child: Text(doc.get('name').toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
               ),
             ),
           ),

@@ -8,10 +8,22 @@ import 'tiles.dart';
 import 'main.dart';
 import 'discover_feeds.dart';
 
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  static List<Widget> _widgetOptions = <Widget>[
+    Requests(), Feed(), Home()
+  ];
+  _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex  = index;
+    });
+  }
 
-class HomePage extends StatelessWidget {
-  Function person;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,32 +34,38 @@ class HomePage extends StatelessWidget {
           drawer: NavDrawer(),
           appBar: AppBar(
             backgroundColor: Colors.green,
-            bottom: TabBar(
-              tabs: [
-                Tab(
-                  icon: Icon(Icons.face),
-                  text: 'Requests',
-                ),
-                Tab(
-                  icon: Icon(Icons.image),
-                  text: 'Feed',
-                ),
-                Tab(
-                  icon: Icon(Icons.chat),
-                  text: 'Chat',
-                ),
-              ],
-            ),
             title: Text('Companion'),
           ),
-          body: TabBarView(
-            children: [Requests(), Feed(), Home()],
+          body: Container(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.green,
+            items: <BottomNavigationBarItem>[
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.face),
+                label: 'Requests',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.image),
+                label: 'Feed',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat),
+                label: 'Chat',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.white,
+            onTap: _onItemTapped,
           ),
         ),
       ),
     );
   }
 }
+
 
 
 class NavDrawer extends StatelessWidget{

@@ -12,10 +12,10 @@ class NavDrawer extends StatelessWidget {
           DrawerHeader(
             child: Text(
               'Assets',
-              style: TextStyle(color: Colors.blue, fontSize: 25),
+              style: TextStyle(color: Colors.green, fontSize: 25),
             ),
             decoration: BoxDecoration(
-              color: Colors.lightBlue,
+              color: Colors.lightGreen,
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: NetworkImage(

@@ -70,9 +70,9 @@ class AuthProvider{
 
         }else{
           //old user
-          //sharedPreferences.setString("id", result[0]["id"]});
-          //sharedPreferences.setString("name", result[0]["name"]);
-          //sharedPreferences.setString("profile_pic", result[0]["profile_pic"]);
+          sharedPreferences.setString("id", result[0].get("id"));
+          sharedPreferences.setString("name", result[0].get("name"));
+          sharedPreferences.setString("profile_pic", result[0].get("profile_pic"));
         }
         return true;
       }
