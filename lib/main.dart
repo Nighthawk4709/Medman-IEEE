@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'tiles.dart';
 import 'logout.dart';
+import 'compete.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

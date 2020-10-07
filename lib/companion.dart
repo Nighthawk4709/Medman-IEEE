@@ -1,8 +1,10 @@
+import 'package:example/profile.dart';
 import 'package:flutter/material.dart';
 import './chat.dart';
 import './feed.dart';
 import './drawer.dart';
 import './requests.dart';
+import 'compete.dart';
 import 'signin.dart';
 import 'tiles.dart';
 import 'main.dart';
@@ -33,14 +35,18 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           drawer: NavDrawer(),
           appBar: AppBar(
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.green[700],
             title: Text('Companion'),
+
+            actions: [
+              IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: null)
+            ],
           ),
           body: Container(
             child: _widgetOptions.elementAt(_selectedIndex),
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.green[700],
             items: <BottomNavigationBarItem>[
 
               BottomNavigationBarItem(
@@ -76,22 +82,46 @@ class NavDrawer extends StatelessWidget{
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
+            child: Row(
+              children: [
+                Container(
+                  width: 140,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('images/logo.png'),
+                    ),
+                  ),
+                ),
+                Column(
+                  children: <Widget>[
+                    Spacer(),
+                    Text(
+                      'Health',
+                      style: TextStyle(color: Colors.cyan[800], fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'Network',
+                      style: TextStyle(color: Colors.cyan[800], fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    Spacer(),
+                  ],
 
-            child: Text(
-              'Assets',
-              style: TextStyle(color: Colors.blue, fontSize: 25),
+                ),
+              ],
             ),
             decoration: BoxDecoration(
-              color: Colors.lightBlue,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage("https://image.freepik.com/free-photo/stethoscope-blue-background-top-view-space-text_185193-6316.jpg"),
-              ),
+              color: Colors.grey[300],
             ),
+
           ),
           ListTile(
-            leading: Icon(Icons.person),
+            leading: Icon(Icons.group),
             title: Text('Companion'),
+            tileColor: Colors.grey[300],
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
@@ -103,12 +133,14 @@ class NavDrawer extends StatelessWidget{
           ListTile(
             leading: Icon(Icons.compare),
             title: Text('Compete'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => Navigator.push(context, new MaterialPageRoute
+              (builder: (context)=> MyStatefulWidget() )),
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            onTap: () => Navigator.push(context, new MaterialPageRoute
+              (builder: (context)=> profile() )),
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),

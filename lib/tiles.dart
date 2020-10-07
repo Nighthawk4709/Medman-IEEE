@@ -19,30 +19,68 @@ class _tileState extends State<tile> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("images/bg1.jpg"),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
           //color: Colors.lightBlueAccent,
-          //child: Padding(
-          //padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-          child: StaggeredGridView.count(
-            crossAxisCount: 1,
-            mainAxisSpacing: 15,
-            crossAxisSpacing: 15,
-            staggeredTiles: [
-              StaggeredTile.extent(1, 650),
-              StaggeredTile.extent(1, 650),
-              StaggeredTile.extent(1, 650),
-              StaggeredTile.extent(1, 650),
-            ],
-            children: <Widget>[
-              first(context),
-              second(),
-              third(),
-              forth(),
-            ],
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.black54,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+              child: Column(
+                children: <Widget>[
+                  Spacer(),
+                  Center(
+                      child: Image.asset(
+                    'images/logo2.png',
+                    height: 250,
+                  )),
+                  Text(
+                    "HEALTH \n NETWORK",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 50,
+                        color: Colors.white),
+                  ),
+                  Spacer(),
+                  MaterialButton(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    elevation: 5,
+                    minWidth: 120,
+                    height: 50,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                    child: Text(
+                      "Sign up",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    ),
+                  ),
+                  Spacer(),
+                  Center(child: Text(
+                    "@The Medmen",
+                        style: TextStyle(color: Colors.white,fontSize: 20)
+                  )),
+                  Container(height: 10,),
+                ],
+              ),
+            ),
           ),
         ),
+      ),
       ),
     );
   }
@@ -60,9 +98,9 @@ Widget first(BuildContext context) {
         children: <Widget>[
           Center(
               child: Image.asset(
-                'images/logo2.png',
-                height: 250,
-              )),
+            'images/logo2.png',
+            height: 250,
+          )),
           Text(
             "HEALTH \n NETWORK",
             textAlign: TextAlign.center,
@@ -73,7 +111,6 @@ Widget first(BuildContext context) {
             height: 40,
           ),
           RaisedButton(
-
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -114,14 +151,14 @@ Widget second() {
           ),
           Text(
             "A network of people can be created which will connect people"
-                " through by their journeys and these will be able to sh"
-                "are their experiences which will help them bond with ea"
-                "ch other and make their path towards healthiness more en"
-                "joyable. AWARENESS being the key to achieve health goals"
-                ", our primary goal is to let people know about the reali"
-                "ty of the health maintenance.Understanding how humans react"
-                " to competitive improvement and supporting mechanism we can"
-                " easily influence them to be more a ware of their health.",
+            " through by their journeys and these will be able to sh"
+            "are their experiences which will help them bond with ea"
+            "ch other and make their path towards healthiness more en"
+            "joyable. AWARENESS being the key to achieve health goals"
+            ", our primary goal is to let people know about the reali"
+            "ty of the health maintenance.Understanding how humans react"
+            " to competitive improvement and supporting mechanism we can"
+            " easily influence them to be more a ware of their health.",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25, color: Colors.white),
           ),
@@ -155,9 +192,9 @@ Widget third() {
           ),
           Text(
             "Growing up, we might hear the phrase ‘health is wealth’, but in today’s"
-                " world, people are more focusing on money, not on their real wealth. "
-                "The coronavirus outbreak suggests that health is the most crucial aspect of life. "
-                "If it is affected, it can cause a lot of other elements like mental well being, economy, social life to suffer. ",
+            " world, people are more focusing on money, not on their real wealth. "
+            "The coronavirus outbreak suggests that health is the most crucial aspect of life. "
+            "If it is affected, it can cause a lot of other elements like mental well being, economy, social life to suffer. ",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25, color: Colors.white),
           )
@@ -204,10 +241,10 @@ Widget forth() {
                     children: <Widget>[
                       Center(
                           child: Image.asset(
-                            'images/dk.png',
-                            width: 150,
-                            height: 200,
-                          )),
+                        'images/dk.png',
+                        width: 150,
+                        height: 200,
+                      )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -238,10 +275,10 @@ Widget forth() {
                     children: <Widget>[
                       Center(
                           child: Image.asset(
-                            'images/jp.png',
-                            width: 150,
-                            height: 200,
-                          )),
+                        'images/jp.png',
+                        width: 150,
+                        height: 200,
+                      )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -277,10 +314,10 @@ Widget forth() {
                     children: <Widget>[
                       Center(
                           child: Image.asset(
-                            'images/vd.png',
-                            width: 150,
-                            height: 200,
-                          )),
+                        'images/vd.png',
+                        width: 150,
+                        height: 200,
+                      )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -311,10 +348,10 @@ Widget forth() {
                     children: <Widget>[
                       Center(
                           child: Image.asset(
-                            'images/at.png',
-                            width: 150,
-                            height: 200,
-                          )),
+                        'images/at.png',
+                        width: 150,
+                        height: 200,
+                      )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -341,4 +378,3 @@ Widget forth() {
     ),
   );
 }
-

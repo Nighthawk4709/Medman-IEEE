@@ -33,8 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
     bool userLoggedIn = (sharedPreferences.getString('id')??'').isNotEmpty;
 
     if(userLoggedIn){
-      //Navigator.push(context,
-         // MaterialPageRoute(builder: (context) => MyApp()));
+      Navigator.push(context,
+         MaterialPageRoute(builder: (context) => MyApp()));
     }
     else{
       pageInit = true;
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Enter your Email and password below to join a network where you can know lots of thing related to your health!!',
+                  'Health is most important thing in life, So we have to focus on it together. Use Google Sign-In and join Health Network',
                   textAlign: TextAlign.center,
                   style:
                       GoogleFonts.openSans(color: Colors.white, fontSize: 14),

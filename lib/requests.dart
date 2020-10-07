@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +13,7 @@ class Requests extends StatefulWidget {
 class _RequestsState extends State<Requests> {
   GoogleSignIn googleSignIn = GoogleSignIn();
   String userId;
+  String userPhoto;
 
   @override
   void initState() {
@@ -22,6 +24,7 @@ class _RequestsState extends State<Requests> {
   getUserId() async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     userId = sharedPreferences.getString('id');
+    userPhoto = sharedPreferences.getString('profile_pic');
   }
 
   @override
@@ -61,8 +64,47 @@ class _RequestsState extends State<Requests> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           height: 40,
-          child: Center(
-            child: Text(doc.get('name').toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+          child: Row(
+            children: <Widget>[
+              CircleAvatar(
+                radius: 20.0,
+                backgroundImage:
+                NetworkImage(doc.get('profile_pic')),
+                backgroundColor: Colors.transparent,
+              ),
+
+              Container(
+                width: 10,
+              ),
+              Center(
+                child: Text(doc.get('name').toUpperCase(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+              ),
+              Spacer(),
+              MaterialButton(
+                minWidth: 10,
+                onPressed: (){},
+                child: Icon(Icons.done,),
+                color: Colors.green[800],
+
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+              ),
+              Container(
+                width: 10,
+              ),
+
+              MaterialButton(
+                minWidth: 10,
+                onPressed: (){},
+                child: Icon(Icons.not_interested,),
+                color: Colors.red[800],
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                ),
+              )
+
+            ],
           ),
         ),
       ),
