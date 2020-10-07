@@ -1,0 +1,107 @@
+body: ListView.builder(
+            itemCount: 10,
+              itemBuilder: (context,index) =>
+                  Card(
+                    child: Container(
+                      height: 350.0,
+                      color: Colors.lightBlue,
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            leading: CircleAvatar(backgroundImage: NetworkImage("https://cdn3-www.comingsoon.net/assets/uploads/2016/12/bossbabytrailer.jpg"),),
+
+                            title: Text("Feed title"),
+                            subtitle: Text("Author name"),
+                          ),
+                          //In this part use this part to show articles
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    "https://previews.123rf.com/images/dizanna/dizanna1509/dizanna150900512/45100714-health-word-cloud-heart-concept.jpg"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  RaisedButton.icon(onPressed: () {}, icon: Icon(Icons.thumb_up, color: Colors.lightBlueAccent ), label: Text("Like") ,color: Colors.white,),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  RaisedButton.icon(onPressed: () {}, icon: Icon(Icons.comment, color: Colors.lightBlueAccent ), label: Text("Comment") ,color: Colors.white,),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  RaisedButton.icon(onPressed: () {}, icon: Icon(Icons.share, color: Colors.lightBlueAccent ), label: Text("Share") ,color: Colors.white,),
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 12.0),
+                        ],
+                      ),
+                    ),
+                  ),
+          ),
+
+          ListView.builder(
+                    itemCount: 50,
+                    itemBuilder: (context, index) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.person,
+                              color: Colors.grey,
+                              size: 60,
+                            ),
+                            SizedBox(width: 10)
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            SizedBox(width: 50),
+                            Text("Name"),
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            // SizedBox(width: 10),
+                            ButtonTheme(
+                              minWidth: 100.0,
+                              height: 40.0,
+                              buttonColor: Colors.green,
+                              child: RaisedButton(
+                                onPressed: () {},
+                                child: Text("Accept"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            ButtonTheme(
+                              minWidth: 100.0,
+                              height: 40.0,
+                              buttonColor: Colors.red,
+                              child: RaisedButton(
+                                onPressed: () {},
+                                child: Text("Reject"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30),
+                      ],
+                    ),
+                  ),
